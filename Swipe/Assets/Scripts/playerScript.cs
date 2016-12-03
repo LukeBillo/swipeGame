@@ -22,7 +22,7 @@ public class playerScript : MonoBehaviour {
 	void Update () {
         
         // if touch received
-       if (Input.touchCount > 0)
+        if (Input.touchCount > 0)
         {
             // collect first touch
             Touch swipeTouch = Input.touches[0];
@@ -40,6 +40,14 @@ public class playerScript : MonoBehaviour {
 
                 flickPlayer = true;
             }
+        }
+
+        // when the player drops off the screen...kill him!
+        Vector3 screenCoords = Camera.main.WorldToScreenPoint(transform.position);
+        Debug.Log(screenCoords);
+        if (screenCoords.y < 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 
