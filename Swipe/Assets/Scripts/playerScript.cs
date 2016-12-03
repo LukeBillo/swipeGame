@@ -42,6 +42,7 @@ public class playerScript : MonoBehaviour {
                 if (attached)
                 {
                     playerTransform.parent = null;
+                    rbPlayer.isKinematic = false;
                 }
 
                 direction = new Vector3(swipeEnd.x - swipeOrigin.x, swipeEnd.y - swipeOrigin.y, 0);
@@ -76,6 +77,7 @@ public class playerScript : MonoBehaviour {
         if (collision.transform.tag == "Enemy")
         {
             playerTransform.parent = collision.transform;
+            rbPlayer.isKinematic = true;
             attached = true;
         }
     }
