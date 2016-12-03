@@ -49,6 +49,7 @@ public class playerScript : MonoBehaviour {
         if (flickPlayer)
         {
             rbPlayer.AddForce(direction * speed);
+            flickPlayer = false;
         }
     }
 }
