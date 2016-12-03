@@ -20,9 +20,8 @@ public class playerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
         // if touch received
-       if (Input.touchCount > 0)
+        if (Input.touchCount > 0)
         {
             // collect first touch
             Touch swipeTouch = Input.touches[0];
@@ -48,6 +47,7 @@ public class playerScript : MonoBehaviour {
     {
         if (flickPlayer)
         {
+            
             rbPlayer.AddForce(direction * speed);
             flickPlayer = false;
         }
