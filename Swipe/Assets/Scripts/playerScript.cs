@@ -49,6 +49,14 @@ public class playerScript : MonoBehaviour {
                 flickPlayer = true;
             }
         }
+
+        // when the player drops off the screen...kill him!
+        Vector3 screenCoords = Camera.main.WorldToScreenPoint(transform.position);
+        Debug.Log(screenCoords);
+        if (screenCoords.y < 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // called during physics update

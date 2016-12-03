@@ -11,7 +11,9 @@ public class enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
-        bool onScreen = (screenPoint.x < 0) | (screenPoint.x > 1);
+        // if they're not in viewport then they probably shouldn't exist
+        bool onScreen = ((screenPoint.x > 0) || (screenPoint.x < Camera.main.pixelWidth))
+            && (screenPoint.y > 0);
         Debug.Log(screenPoint);
         if (!onScreen)
         {
