@@ -18,9 +18,9 @@ public class enemySpawner : MonoBehaviour {
         if (timerStart > rate)
         {
             // time is up...spawn a new enemy
-            var enemy = (GameObject)Instantiate(Resources.Load("Enemy"), transform.localPosition, Quaternion.identity, transform);
+            var enemy = (GameObject)Instantiate(Resources.Load("Enemy"), transform.position, Quaternion.identity);
             timerStart = 0;
-            enemy.transform.position += new Vector3(Random.Range(-500, 500), 0, 0 );
+            enemy.transform.position += new Vector3(Random.Range(-10, 10), 0, 0 );
         }
 	}
 }
