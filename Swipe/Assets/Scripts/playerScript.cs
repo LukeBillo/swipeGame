@@ -8,15 +8,19 @@ public class playerScript : MonoBehaviour {
     private Vector2 swipeEnd = Vector2.zero;
 
     Rigidbody rbPlayer;
+    Transform playerTransform;
 
     private bool flickPlayer = false;
+    private bool attached = false;
 
     public float speed;
 
     // Use this for initialization
     void Start () {
         rbPlayer = GetComponent<Rigidbody>();
-	}
+        playerTransform = GetComponent<Transform>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -35,6 +39,11 @@ public class playerScript : MonoBehaviour {
             {
                 swipeEnd = swipeTouch.position;
 
+                if (attached)
+                {
+                    playerTransform.parent = null;
+                }
+
                 direction = new Vector3(swipeEnd.x - swipeOrigin.x, swipeEnd.y - swipeOrigin.y, 0);
 
                 flickPlayer = true;
@@ -47,9 +56,19 @@ public class playerScript : MonoBehaviour {
     {
         if (flickPlayer)
         {
-            
             rbPlayer.AddForce(direction * speed);
             flickPlayer = false;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("We collided!");
+
+        if (collision.transform.tag == "Enemy")
+        {
+            playerTransform.parent = collision.transform;
+            attached = true;
         }
     }
 }
