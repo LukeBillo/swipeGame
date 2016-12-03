@@ -1,15 +1,55 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class playerScropt : MonoBehaviour {
+public class playerScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
+    private Vector3 direction = Vector3.zero;
+    private Vector2 swipeOrigin = Vector2.zero;
+    private Vector2 swipeEnd = Vector2.zero;
+
+    Rigidbody rbPlayer;
+
+    private bool flickPlayer = false;
+
+    public float speed;
+
+    // Use this for initialization
+    void Start () {
+        rbPlayer = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        
+        // if touch received
+       if (Input.touchCount > 0)
+        {
+            // collect first touch
+            Touch swipeTouch = Input.touches[0];
+
+            if (swipeTouch.phase == TouchPhase.Began)
+            {
+                swipeOrigin = swipeTouch.position;
+            }
+
+            else if (swipeTouch.phase == TouchPhase.Ended)
+            {
+                swipeEnd = swipeTouch.position;
+
+                direction = new Vector3(swipeEnd.x - swipeOrigin.x, swipeEnd.y - swipeOrigin.y, 0);
+
+                flickPlayer = true;
+            }
+        }
+    }
+
+    // called during physics update
+    void FixedUpdate()
+    {
+        if (flickPlayer)
+        {
+            rbPlayer.AddForce(direction * speed);
+            flickPlayer = false;
+        }
+    }
 }
